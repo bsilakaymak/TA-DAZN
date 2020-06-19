@@ -1,0 +1,33 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.App {
+  text-align: center;
+}
+
+.app-container{
+  display: flex;
+  flex-direction: column;
+}
+.movie-list{
+  width: 100%;
+  padding: 1%;
+}
+.char-list{
+  padding: 1%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+.char-item{
+  width: 32%;
+  margin: auto;
+  border: 3px solid black;
+}
+
+.hidden{
+  display: none;
+}
