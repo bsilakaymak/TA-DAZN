@@ -5,16 +5,21 @@ const Character = ({ char }) => {
   const [charFilms, setCharFilms] = useState([]);
   const [charVehicles, setCharVehicles] = useState([]);
   const [charStarship, setCharStarship] = useState([]);
-  const [detailsLoading, setDetailsLoading] = useState(false);
   const [filmsOpen, setFilmsOpen] = useState(false);
   const [shipOpen, setShipOpen] = useState(false);
   const [vehicleOpen, setVehicleOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const getDetails = async (urls) => {
     try {
       const allResponses = await Promise.all(urls.map((url) => getData(url)));
+      setLoading(false);
+      setError(false);
       return allResponses;
     } catch (error) {
       console.error(error);
+      setError(true);
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -29,6 +34,9 @@ const Character = ({ char }) => {
       setCharStarship(starships);
     })();
   }, [char.films, char.starships, char.vehicles]);
+
+  if(error)return <h2>Something Went Wrong</h2>
+  if(loading) return <div className='details-loading-skeleton'></div>
   return (
     <div className="char-item">
       <p>
@@ -57,8 +65,8 @@ const Character = ({ char }) => {
           Films
         </h4>
         <div className={filmsOpen ? "" : "hidden"}>
-          {charFilms.map((cf) => {
-            return <p>{cf.title}</p>;
+          {charFilms.map((cf, i) => {
+            return <p key={i}>{cf.title}</p>;
           })}
         </div>
         <h4
@@ -70,8 +78,8 @@ const Character = ({ char }) => {
         </h4>
         <div className={shipOpen ? "" : "hidden"}>
           {charStarship.length === 0 && <p>This character has no starships</p>}
-          {charStarship.map((cs) => {
-            return <p>{cs.name}</p>;
+          {charStarship.map((cs,i) => {
+            return <p key={i}>{cs.name}</p>;
           })}
         </div>
 
@@ -84,8 +92,8 @@ const Character = ({ char }) => {
         </h4>
         <div className={vehicleOpen ? "" : "hidden"}>
           {charVehicles.length === 0 && <p>This character has no vehicles</p>}
-          {charVehicles.map((cv) => {
-            return <p>{cv.name}</p>;
+          {charVehicles.map((cv,i) => {
+            return <p key={i}>{cv.name}</p>;
           })}
         </div>
       </div>

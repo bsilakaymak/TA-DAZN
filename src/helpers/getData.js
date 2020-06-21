@@ -6,7 +6,6 @@ const cachedFetch = async (url) => {
   }
   const res = await fetch(url).then((res) => res.json());
   cache[url] = res;
-  console.log(cache[url])
   return res;
 };
 

@@ -63,3 +63,10 @@
   color:white;
   background-color: rgb(226, 141, 43);
 }
+
+.details-loading-skeleton{
+  width: 25%;
+  height: 15rem;
+  background-color: rgba(172, 172, 172, 0.274);
+  margin: 1rem;
+}

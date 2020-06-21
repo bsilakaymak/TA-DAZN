@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment } from "react";
 import Character from "./Character";
 const CharacterList = ({ chars }) => {
   return (
@@ -6,7 +6,7 @@ const CharacterList = ({ chars }) => {
       {chars && (
         <div className="char-list">
           {chars.map((char) => (
-            <Character char={char}  />
+            <Character char={char} key={char.name} />
           ))}
         </div>
       )}
