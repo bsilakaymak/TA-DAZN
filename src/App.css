@@ -11,9 +11,29 @@
   display: flex;
   flex-direction: column;
 }
+.app-container button{
+  max-width: 25%;
+  background-color: rgb(226, 141, 43);
+  color: white;
+  text-align: center;
+  margin: 1% auto;
+  outline: none;
+  border: 1px solid rgb(226, 141, 43);
+  border-radius: 5px;
+  padding: 1%;
+}
+.app-container button:hover{
+  cursor: pointer;
+  background-color: white;
+  color: rgb(226, 141, 43)
+}
 .movie-list{
   width: 100%;
   padding: 1%;
+}
+.movie-item{
+  width: 65%;
+  margin: 2% auto;
 }
 .char-list{
   padding: 1%;
@@ -24,10 +44,22 @@
 }
 .char-item{
   width: 32%;
-  margin: auto;
-  border: 3px solid black;
+  margin: 1% auto;
+  border: 1px solid gray;
 }
-
+.char-item h4{
+  cursor: pointer;
+}
+.char-item h4:hover{
+  cursor: pointer;
+  color: rgb(90, 90, 236)
+}
 .hidden{
   display: none;
+}
+
+.movie-item button {
+  width: 20%;
+  color:white;
+  background-color: rgb(226, 141, 43);
 }

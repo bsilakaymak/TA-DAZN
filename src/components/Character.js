@@ -39,41 +39,46 @@ const Character = ({ char }) => {
   }, []);
   return (
     <div className="char-item">
-      <p>{char.name}</p>
+      <p><em>Name: </em>{char.name}</p>
+      <p><em>Birth: </em>{char.birth_year}</p>
+      <p><em>Height: </em>{char.height}<em> Mass:</em> {char.mass}</p>
+      <p><em>Gender: </em>{char.gender}</p>
       <div className="details">
-        <h3
+        <h4
           onClick={() => {
             setFilmsOpen(!filmsOpen);
           }}
         >
           Films
-        </h3>
+        </h4>
         <div className={filmsOpen ? "" : "hidden"}>
           {charFilms.map((cf) => {
             return <p>{cf.title}</p>;
           })}
         </div>
-        <h3
+        <h4
           onClick={() => {
             setShipOpen(!shipOpen);
           }}
         >
           Starships
-        </h3>
+        </h4>
         <div className={shipOpen ? "" : "hidden"}>
+          {charStarship.length === 0 && <p>This character has no starships</p>}
           {charStarship.map((cs) => {
             return <p>{cs.name}</p>;
           })}
         </div>
 
-        <h3
+        <h4
           onClick={() => {
             setVehicleOpen(!vehicleOpen);
           }}
         >
           Vehicles
-        </h3>
+        </h4>
         <div className={vehicleOpen ? "" : "hidden"}>
+        {charVehicles.length === 0 && <p>This character has no vehicles</p>}
           {charVehicles.map((cv) => {
             return <p>{cv.name}</p>;
           })}
