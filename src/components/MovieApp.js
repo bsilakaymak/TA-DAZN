@@ -1,40 +1,24 @@
 import React, { useContext, useEffect, useState, Fragment } from "react";
 import MovieList from "./MoviesList";
-import { SWContext } from "../contexts/SWProvider";
 import CharacterList from "./CharacterList";
+import {getData} from '../helpers/getData';
 
 const MovieApp = () => {
   const [charsOpen, setCharsOpen] = useState(false);
-  const {
-    getMovies,
-    movies,
-    getChars,
-    chars,
-    charsLoading,
-    moviesLoading,
-  } = useContext(SWContext);
-  useEffect(() => {
-    getMovies();
-    return () => {
-      getMovies();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  useEffect(() => {
-    getChars();
-    return () => {
-      getChars();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  if (charsLoading || moviesLoading) return <h3>Loading...</h3>;
+  const [chars, setChars] = useState([]);
+  const [movies,setMovies] = useState([]);
+
+  useEffect(()=>{
+    getData('https://swapi.dev/api/films/').then(res=>setMovies(res.results));
+    getData('https://swapi.dev/api/people/').then(res=>setChars(res.results))
+  }, [])
   return (
     <div className="app-container">
       <button onClick={() => setCharsOpen(!charsOpen)}>
         {charsOpen ? "Go Back To Movies" : "Go to Charactes"}
       </button>
       {charsOpen ? (
-        <CharacterList chars={chars} charsLoading={charsLoading} />
+        <CharacterList chars={chars} />
       ) : (
         <Fragment>
           <MovieList movies={movies} />
