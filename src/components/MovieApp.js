@@ -35,7 +35,10 @@ const MovieApp = () => {
   if (loading) return <h2>Loading...</h2>;
   return (
     <div className="app-container">
-      <button onClick={() => setCharsOpen(!charsOpen)}>
+      <button
+        className="app-main-btns"
+        onClick={() => setCharsOpen(!charsOpen)}
+      >
         {charsOpen ? "Go Back To Movies" : "Go to Charactes"}
       </button>
       {charsOpen ? (
