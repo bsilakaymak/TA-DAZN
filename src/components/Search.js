@@ -23,7 +23,6 @@ const Search = ({ searchList, movieMod, placeHolder }) => {
     });
     setSearchResults(results);
   };
-  console.log(searchResults);
   return (
     <Fragment>
       <input

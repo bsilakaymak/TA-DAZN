@@ -15,7 +15,6 @@ const Character = ({ char }) => {
       const allResponses = await Promise.all(urls.map((url) => getData(url)));
       setLoading(false);
       setError(false);
-      console.log(allResponses);
       return allResponses;
     } catch (error) {
       console.error(error);
@@ -69,7 +68,6 @@ const Character = ({ char }) => {
         {charFilms && (
           <div className={filmsOpen ? "" : "hidden"}>
             {charFilms.map((cf, i) => {
-              console.log(cf);
               return <p key={i}>{cf.title}</p>;
             })}
           </div>
