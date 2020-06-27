@@ -39,7 +39,15 @@ const MovieApp = () => {
         className="app-main-btns"
         onClick={() => setCharsOpen(!charsOpen)}
       >
-        {charsOpen ? "Go Back To Movies" : "Go to Charactes"}
+        {charsOpen ? (
+          <span>
+            Go back to Movies <i className="fa fa-film" aria-hidden="true"></i>
+          </span>
+        ) : (
+          <span>
+            Go to characters <i className="fa fa-user" aria-hidden="true"></i>
+          </span>
+        )}
       </button>
       {charsOpen ? (
         <CharacterList chars={chars} />

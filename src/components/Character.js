@@ -38,7 +38,7 @@ const Character = ({ char }) => {
   if (loading) return <div className="details-loading-skeleton"></div>;
   return (
     <div className="char-item">
-      <div>
+      <div className='char-info'> 
         <p>
           <em>Name: </em>
           {char.name}

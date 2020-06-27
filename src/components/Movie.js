@@ -5,6 +5,7 @@ const Movie = ({ movie }) => {
   return (
     <div className="movie-item">
       <h3>{movie.title}</h3>
+      <h4>Episode {movie.episode_id}</h4>
       <button onClick={() => setDetailsOpen(!detailsOpen)}>
         {detailsOpen ? `Close` : `More Info`}
       </button>
