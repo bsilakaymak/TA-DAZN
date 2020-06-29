@@ -13,8 +13,7 @@ export const getData = async (url) => {
     const res = await cachedFetch(url);
     return res;
   } catch (error) {
-    if (error) {
-      console.error(error);
-    }
+    console.error(error);
+    throw new Error('Something Went Wrong')
   }
 };

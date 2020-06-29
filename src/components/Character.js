@@ -8,11 +8,11 @@ const Character = ({ char }) => {
   const [filmsOpen, setFilmsOpen] = useState(false);
   const [shipOpen, setShipOpen] = useState(false);
   const [vehicleOpen, setVehicleOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const getDetails = async (urls) => {
     try {
-      const allResponses = await Promise.all(urls.map((url) => getData(url)));
+      const allResponses = await Promise.all(urls.map((url) => getData(url.replace(/^http:/, 'https:'))));
       setLoading(false);
       setError(false);
       return allResponses;
@@ -22,18 +22,19 @@ const Character = ({ char }) => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    (async () => {
-      const [films, vehicles, starships] = await Promise.all([
-        getDetails(char.films),
-        getDetails(char.vehicles),
-        getDetails(char.starships),
-      ]);
-      setCharFilms(films);
-      setCharVehicles(vehicles);
-      setCharStarship(starships);
-    })();
-  }, [char.films, char.starships, char.vehicles]);
+
+  // useEffect(() => {
+  //   (async () => {
+  //     const [films, vehicles, starships] = await Promise.all([
+  //       getDetails(char.films),
+  //       getDetails(char.vehicles),
+  //       getDetails(char.starships),
+  //     ]);
+  //     setCharFilms(films);
+  //     setCharVehicles(vehicles);
+  //     setCharStarship(starships);
+  //   })();
+  // }, [char.films, char.starships, char.vehicles]);
   if (error) return <h2>Something Went Wrong</h2>;
   if (loading) return <div className="details-loading-skeleton"></div>;
   return (
@@ -60,7 +61,8 @@ const Character = ({ char }) => {
       <div className="details">
         <h4
           onClick={() => {
-            setFilmsOpen(!filmsOpen);
+            getDetails(char.films).then(responses=> setCharFilms(responses))
+            setFilmsOpen(true);
           }}
         >
           Films
@@ -73,8 +75,10 @@ const Character = ({ char }) => {
           </div>
         )}
         <h4
-          onClick={() => {
-            setShipOpen(!shipOpen);
+          onClick={async() => {
+            getDetails(char.starships).then(responses=> setCharStarship(responses))
+            setShipOpen(true);
+
           }}
         >
           Starships
@@ -92,7 +96,8 @@ const Character = ({ char }) => {
 
         <h4
           onClick={() => {
-            setVehicleOpen(!vehicleOpen);
+            getDetails(char.vehicles).then(responses=> setCharVehicles(responses))
+            setVehicleOpen(true);
           }}
         >
           Vehicles

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import Movie from "./Movie";
 import Character from "./Character";
 
@@ -6,23 +6,28 @@ const Search = ({ searchList, movieMod, placeHolder }) => {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const handleOnChange = (searchValue) => {
+  useEffect(() => {
     const results = [];
-    searchList.forEach((s) => {
-      if (movieMod) {
-        if (s.title.toLowerCase().includes(searchValue.toLowerCase())) {
-          results.push(s);
+    if (searchValue.length > 0) {
+      searchList.forEach((s) => {
+        if (movieMod) {
+          if (s.title.toLowerCase().includes(searchValue.toLowerCase())) {
+            results.push(s);
+          }
+          return;
         }
-        return;
-      }
-      if (movieMod === false) {
-        if (s.name.toLowerCase().includes(searchValue.toLowerCase())) {
-          results.push(s);
+        if (movieMod === false) {
+          if (s.name.toLowerCase().includes(searchValue.toLowerCase())) {
+            results.push(s);
+          }
         }
-      }
-    });
-    setSearchResults(results);
-  };
+      });
+      setSearchResults(results);
+    }else{
+      setSearchResults([])
+    }
+  }, [searchValue]);
+
   return (
     <Fragment>
       <input
@@ -32,11 +37,10 @@ const Search = ({ searchList, movieMod, placeHolder }) => {
         placeholder={placeHolder}
         onChange={(e) => {
           setSearchValue(e.target.value);
-          handleOnChange(searchValue);
         }}
       />
 
-      {searchValue.length > 2 && searchResults.length !== 0 && (
+      {searchResults.length !== 0 && (
         <div>
           <div>
             {movieMod &&
