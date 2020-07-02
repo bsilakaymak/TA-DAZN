@@ -1,45 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getData } from "../helpers/getData";
+import CharDetails from "./CharDetails";
 
 const Character = ({ char }) => {
-  const [charFilms, setCharFilms] = useState([]);
-  const [charVehicles, setCharVehicles] = useState([]);
-  const [charStarship, setCharStarship] = useState([]);
-  const [filmsOpen, setFilmsOpen] = useState(false);
-  const [shipOpen, setShipOpen] = useState(false);
-  const [vehicleOpen, setVehicleOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const getDetails = async (urls) => {
-    try {
-      const allResponses = await Promise.all(urls.map((url) => getData(url.replace(/^http:/, 'https:'))));
-      setLoading(false);
-      setError(false);
-      return allResponses;
-    } catch (error) {
-      console.error(error);
-      setError(true);
-      setLoading(false);
-    }
-  };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const [films, vehicles, starships] = await Promise.all([
-  //       getDetails(char.films),
-  //       getDetails(char.vehicles),
-  //       getDetails(char.starships),
-  //     ]);
-  //     setCharFilms(films);
-  //     setCharVehicles(vehicles);
-  //     setCharStarship(starships);
-  //   })();
-  // }, [char.films, char.starships, char.vehicles]);
-  if (error) return <h2>Something Went Wrong</h2>;
-  if (loading) return <div className="details-loading-skeleton"></div>;
   return (
     <div className="char-item">
-      <div className='char-info'> 
+      <div className="char-info">
         <p>
           <em>Name: </em>
           {char.name}
@@ -59,7 +24,23 @@ const Character = ({ char }) => {
         </p>
       </div>
       <div className="details">
-        <h4
+        <CharDetails
+          urls={char.films}
+          detailName="Films"
+          placeholder="This character has no films"
+        />
+        <CharDetails
+          urls={char.vehicles}
+          detailName="Vehicles"
+          placeholder="This character has no vehicles"
+        />
+        <CharDetails
+          urls={char.starships}
+          detailName="Starships"
+          placeholder="This character has no starships"
+        />
+
+        {/* <h4
           onClick={() => {
             getDetails(char.films).then(responses=> setCharFilms(responses))
             setFilmsOpen(true);
@@ -109,9 +90,8 @@ const Character = ({ char }) => {
               return <p key={i}>{cv.name}</p>;
             })}
           </div>
-        )}
+        )} */}
       </div>
-      <ul></ul>{" "}
     </div>
   );
 };
